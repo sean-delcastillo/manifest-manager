@@ -1,1 +1,0 @@
-python manifest-manager.py
