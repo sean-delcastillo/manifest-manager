@@ -18,6 +18,7 @@ def main():
         
     if remote_manifest["version"] == local_manifest["version"]:
         print(f"Your modpack is already up-to-date. Version {remote_manifest['version']}")
+        input("Press any key to exit.")
         return
 
       
