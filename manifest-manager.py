@@ -36,6 +36,8 @@ def main():
     
     print("Done! Please re-zip this folder and import it back into Curseforge.")
 
+    input("Press any key to exit.")
+
 
 
 if __name__ == "__main__":
