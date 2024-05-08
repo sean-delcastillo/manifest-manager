@@ -33,7 +33,7 @@ def main():
     print("Applying updates to local modpack...")
 
     with open(local_manifest_path, "w") as local_manifest_file:
-        json.dump(remote_manifest, local_manifest_file)
+        json.dump(remote_manifest, local_manifest_file, indent=4)
 
     sleep(2)
     
