@@ -1,9 +1,11 @@
 import requests
 import json
 from time import sleep
+from sys import platform
 
 remote_manifest_resource_path = "https://raw.githubusercontent.com/sean-delcastillo/modpack-manifest/main/manifest.json"
 local_manifest_path = "./manifest.json"
+
 
 def main():
     manifest_request = requests.get(remote_manifest_resource_path)
@@ -18,7 +20,7 @@ def main():
         
     if remote_manifest["version"] == local_manifest["version"]:
         print(f"Your modpack is already up-to-date. Version {remote_manifest['version']}")
-        input("Press any key to exit.")
+        wait_for_key()
         return
 
       
@@ -37,8 +39,11 @@ def main():
     
     print("Done! Please re-zip this folder and import it back into Curseforge.")
 
-    input("Press any key to exit.")
+    wait_for_key()
 
+
+def wait_for_key():
+    input("Press Enter to continue.")
 
 
 if __name__ == "__main__":
