@@ -5,8 +5,7 @@ if (-Not (Get-Command 'py' -errorAction SilentlyContinue)) {
 		Write-Output "Downloading installer..."
 		[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 		Invoke-WebRequest -Uri "https://www.python.org/ftp/python/3.12.3/python-3.12.3-amd64.exe" -OutFile ".\python-3.12.3.exe"
-		Write-Output "Installing Python. Please re-run the installer once completed by running .\update.ps1"
-		Read-Host "Press Enter to continue."
+		Write-Output "Installing Python"
 		.\python-3.12.3.exe InstallAllUsers=0 PrependPath=1 Include_test=0 TargetDir=C:\Python\Python312
 
 		Remove-Item .\python-3.9.0.exe -Force 2>$null
