@@ -1,0 +1,25 @@
+.box {
+    width: 1fr;
+    height: auto;
+    border: solid green;
+}
+
+#local_path_input {
+    width: 5fr;
+}
+
+#local_file_select {
+    width: 1fr;
+}
+
+#remote_url_input {
+    width: 5fr;
+}
+
+#load_remote_button {
+    width: 1fr;
+}
+
+.menu-menu {
+    height: 1fr;
+}

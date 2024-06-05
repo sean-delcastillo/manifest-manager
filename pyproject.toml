@@ -8,7 +8,13 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 requests = "^2.31.0"
+textual = "^0.59.0"
 
+
+[tool.poetry.group.dev.dependencies]
+textual-dev = "^1.5.1"
+mypy = "^1.10.0"
+types-requests = "^2.32.0.20240602"
 
 [build-system]
 requires = ["poetry-core"]
