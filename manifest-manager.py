@@ -1,9 +1,14 @@
+import json
+from pathlib import Path
+import tempfile
 from typing import Optional
+from zipfile import ZipFile
 from manifest import ModrinthManifest
+from mrpack import MrPack
 
 from textual import on
 from textual.app import App, ComposeResult
-from textual.widgets import Header, Footer
+from textual.widgets import Header, Footer, Button
 from textual.containers import Horizontal, Vertical
 
 from widgets import RemoteManifestBox, LocalManifestBox, ManagerMenu, ManifestBox
@@ -29,6 +34,17 @@ class ManagerApp(App):
         manager_menu.is_remote_manifest_loaded = True
         if manager_menu.is_local_manifest_loaded:
             self.scan_manifests()
+
+    @on(Button.Pressed, "#sync-button")
+    def handle_sync_button_pressed(self):
+        remote = self.query_one("#remote", RemoteManifestBox)
+        local = self.query_one("#local", LocalManifestBox)
+
+        local_pack = MrPack(local.local_manifest_path)
+        local_pack.copy_manifest(remote.manifest_json)
+
+        remote.update_manifest_menu()
+        local.update_manifest_menu()
 
     def scan_manifests(self):
         files_in_remote_only = []
@@ -56,7 +72,7 @@ class ManagerApp(App):
         yield Header()
         with Vertical(classes="box"):
             yield ManagerMenu()
-            with Horizontal(classes="box"):
+            with Horizontal():
                 yield RemoteManifestBox(classes="box", id="remote")
                 yield LocalManifestBox(classes="box", id="local")
         yield Footer()

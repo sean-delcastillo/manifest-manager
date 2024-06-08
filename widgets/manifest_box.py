@@ -36,12 +36,26 @@ class ManifestBox(Static):
 
     dispirate_files: reactive[list] = reactive([])
     dispirate_file_symbol: str = ""
+    manifest_json: dict
 
     DEFAULT_CSS = """
     .dispirate {
-        background: red 20%;
+        background: red 10%;
+    }
+
+    .manifestbox-container {
+        height: auto;
     }
     """
+
+    def add_manifest_menu(self):
+        raise NotImplementedError()
+
+    def update_manifest_menu(self) -> None:
+        current_menu = self.query_one(ManifestMenu)
+        current_menu.remove()
+
+        self.add_manifest_menu()
 
     def watch_dispirate_files(self, new_dispirate_files: list):
         if new_dispirate_files == []:
@@ -51,14 +65,25 @@ class ManifestBox(Static):
         hash: str
         for hash in new_dispirate_files:
             file_box = manifest_menu.query_one(f"#_{hash}", ManifestFileBox)
-            file_box.mark_dispirate(self.dispirate_file_symbol)
+            file_box.mark_dispirate()
             file_box.add_class("dispirate")
+
+        manifest_menu.reorder_file_list = True
 
 
 class LocalManifestBox(ManifestBox):
     local_manifest_path: reactive[Path] = reactive(Path.home())
     is_directory_tree_open = False
     dispirate_file_symbol = "<<"
+
+    DEFAULT_CSS = """
+    #localmanifestbox-title {
+        margin-right: 1;
+        margin-bottom: 1;
+        width: 100%;
+        text-align: right;
+    }
+    """
 
     def on_directory_tree_file_selected(
         self, event: DirectoryTree.FileSelected
@@ -92,9 +117,12 @@ class LocalManifestBox(ManifestBox):
         with ZipFile(self.local_manifest_path, "r") as local_pack:
             with local_pack.open("modrinth.index.json") as local_manifest:
                 manifest_json = json.loads(local_manifest.read())
-                manifest_menu = ManifestMenu(manifest_json=manifest_json)
+                manifest_menu = ManifestMenu(
+                    manifest_json=manifest_json,
+                    dispirate_file_symbol=self.dispirate_file_symbol,
+                )
                 self.mount(manifest_menu)
-
+                self.manifest_json = manifest_json
                 self.post_message(self.ManifestLoaded(manifest_menu.manifest, self))
 
     def watch_local_manifest_path(self, new_manifest_path: str) -> None:
@@ -107,8 +135,8 @@ class LocalManifestBox(ManifestBox):
         self.add_manifest_menu()
 
     def compose(self) -> ComposeResult:
-        yield Label("Local Manifest")
-        with Horizontal(classes="box"):
+        yield Label("Local Manifest", id="localmanifestbox-title")
+        with Horizontal(classes="manifestbox-container"):
             yield Input(
                 type="text",
                 disabled=True,
@@ -122,6 +150,14 @@ class RemoteManifestBox(ManifestBox):
     is_manifest_loaded: reactive[bool] = reactive(False)
     dispirate_file_symbol = ">>"
 
+    DEFAULT_CSS = """
+    #remotemanifestbox-title {
+        margin-left: 1;
+        margin-bottom: 1;
+        width: 100%;
+    }
+    """
+
     def toggle_is_manifest_loaded(self) -> None:
         self.is_manifest_loaded = not self.is_manifest_loaded
         if self.is_manifest_loaded:
@@ -130,7 +166,11 @@ class RemoteManifestBox(ManifestBox):
 
     def add_manifest_menu(self) -> None:
         manifest_json = read_remote(self.query_one("#remote_url_input", Input).value)
-        manifest_menu = ManifestMenu(manifest_json=manifest_json)
+        manifest_menu = ManifestMenu(
+            manifest_json=manifest_json,
+            dispirate_file_symbol=self.dispirate_file_symbol,
+        )
+        self.manifest_json = manifest_json
         self.mount(manifest_menu)
 
     def remove_manifest_menu(self) -> None:
@@ -158,8 +198,8 @@ class RemoteManifestBox(ManifestBox):
             self.toggle_is_manifest_loaded()
 
     def compose(self) -> ComposeResult:
-        yield Label("Remote Manifest")
-        with Horizontal(classes="box"):
+        yield Label("Remote Manifest", id="remotemanifestbox-title")
+        with Horizontal(classes="manifestbox-container"):
             yield Input(
                 type="text", value=ModrinthManifest.remote_url, id="remote_url_input"
             )
