@@ -94,7 +94,9 @@ class ManagerMenu(Static):
             outdated_warning.update(
                 f"Local Manifest is {new_count} Files Behind Remote Manifest"
             )
+            all_good = self.query_one("#all-good-warning", Label)
             outdated_warning.display = True
+            all_good.display = False
             sync_button.display = True
         else:
             outdated_warning.display = False

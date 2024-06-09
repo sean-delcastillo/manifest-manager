@@ -1,1 +1,1 @@
-# manifest-manager
+# Manifest Manager
