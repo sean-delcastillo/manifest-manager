@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "manifest-manager"
+name = "manifest_manager"
 version = "0.1.0"
 description = "Modrinth Manifest File Manager"
 authors = ["Sean Del Castillo <seanbdcastillo@gmail.com>"]

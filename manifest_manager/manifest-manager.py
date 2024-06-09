@@ -1,6 +1,4 @@
-import json
 from pathlib import Path
-import tempfile
 from typing import Optional
 from zipfile import ZipFile
 from manifest import ModrinthManifest
