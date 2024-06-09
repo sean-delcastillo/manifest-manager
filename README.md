@@ -2,7 +2,7 @@
 
 ![Image Showing The TUI Interface In Two States: One Where The Manifests Match, and The Other Where They Do Not Match](images/manifest_manager_readme_image.png "Manage Modrinth Manifests The Easy Way!")
 
-A TUI (Terminal User Interface) utility to manage a Modrinth manifest file (.mrpack).
+A TUI (Terminal User Interface) utility to manage a Modrinth manifest archive (.mrpack).
 
 ## Installation
 
@@ -36,6 +36,12 @@ pipx install poetry
 
 ---
 
+Install dependencies
+
+```sh
+poetry install
+```
+
 Run Manifest Manager Through Poetry's Virtual Environment
 
 ```sh
@@ -64,12 +70,12 @@ python manifest-manager.py
 
 ### Remote Manifest
 
-Accepts a web URL that returns a JSON file that matches the format of Modrinth's mrpack `modrinth.index.json` file.
+Accepts a web URL that returns a JSON file that matches the format of mrpack's `modrinth.index.json` file.
 
 ### Local Manifest
 
-Accepts a local path of a mrpack file.
+Accepts a local path of a mrpack archive.
 
 ### Syncing
 
-If the file lists of the two loaded manifests are different then an option to pull the remote manifest down to sync the local manifest is available. This will copy the whole remote `modrinth.index.json` file to the local mrpack file. However, this should preserve the local overrides.
+If the file lists of the two loaded manifests are different then an option to pull the remote manifest down to sync the local manifest is available. This will copy the whole remote `modrinth.index.json` file to the local mrpack archive. However, this should preserve the local overrides.
