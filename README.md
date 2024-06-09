@@ -64,7 +64,7 @@ python manifest-manager.py
 
 ### Remote Manifest
 
-Accepts a web URL that returns a JSON file that matches the format of Modrinth's mrpack `manifest.index.json` file.
+Accepts a web URL that returns a JSON file that matches the format of Modrinth's mrpack `modrinth.index.json` file.
 
 ### Local Manifest
 
@@ -72,4 +72,4 @@ Accepts a local path of a mrpack file.
 
 ### Syncing
 
-If the file lists of the two loaded manifests are different then an option to pull the remote manifest down to sync the local manifest is available. This will copy the whole remote `manifest.index.json` file to the local mrpack file. However, this should preserve the local overrides.
+If the file lists of the two loaded manifests are different then an option to pull the remote manifest down to sync the local manifest is available. This will copy the whole remote `modrinth.index.json` file to the local mrpack file. However, this should preserve the local overrides.
