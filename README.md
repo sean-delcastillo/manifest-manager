@@ -44,11 +44,11 @@ poetry run python manifest-manager.py
 
 ### Windows Executable
 
-Download the Windows binary from releases and double click. Built using [PyInstaller](https://pyinstaller.org/en/stable/)
+Download the `manifest-manager.zip` from releases and double click. Built using [PyInstaller](https://pyinstaller.org/en/stable/)
 
 ### Wheel File
 
-Download the [Wheel](https://packaging.python.org/en/latest/specifications/binary-distribution-format/#binary-distribution-format) file from releases
+Download the [Wheel](https://packaging.python.org/en/latest/specifications/binary-distribution-format/#binary-distribution-format) (.whl) file from releases
 
 ```sh
 pip install manifest_manager-0.1.0-py3-none-any.whl
