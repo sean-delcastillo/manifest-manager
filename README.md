@@ -44,7 +44,7 @@ poetry run python manifest-manager.py
 
 ### Windows Executable
 
-Download the `manifest-manager.zip` from releases and double click. Built using [PyInstaller](https://pyinstaller.org/en/stable/)
+Download the `manifest-manager.zip` file from releases and double click. Built using [PyInstaller](https://pyinstaller.org/en/stable/)
 
 ### Wheel File
 
