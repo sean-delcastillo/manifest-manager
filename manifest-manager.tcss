@@ -1,7 +1,7 @@
 .box {
     width: 1fr;
     height: auto;
-    border: solid green;
+    border: solid dimgrey;
 }
 
 #local_path_input {
@@ -31,4 +31,16 @@ LocalManifestBox ManifestMenu Vertical Label{
 ManifestBox ManifestMenu Vertical Label {
     margin-left: 1;
     margin-right: 1;
+}
+
+.highlight-error {
+    color: red 80%;
+}
+
+.highlight-warning {
+    color: orange 80%;
+}
+
+.highlight-ok {
+    color: green 80%;
 }
